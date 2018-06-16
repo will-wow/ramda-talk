@@ -1,10 +1,10 @@
 // Mutation
-deep.user.addresses[1].street = newWorkStreet;
+state.employee.addresses[1].street = newWorkStreet;
 
 // Slow
-_.cloneDeep(deep);
+_.cloneDeep(state);
 
 // Annoying
-const address2 = { ...deep.user.addresses[1], street: newWorkStreet };
-const addresses = [deep.user.addresses[0], address2];
-deep = { ...deep, user: { ...user, addresses } };
+const address2 = { ...state.employee.addresses[1], street: newWorkStreet };
+const addresses = [state.employee.addresses[0], address2];
+state = { ...state, employee: { ...employee, addresses } };

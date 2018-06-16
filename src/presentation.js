@@ -5,7 +5,8 @@ import { Deck } from "spectacle";
 // Import theme
 import createTheme from "spectacle/lib/themes/default";
 
-import IntroSlides from "./sections/IntroSlides";
+// import IntroSlides from "./sections/IntroSlides";
+import LightningSlides from "./sections/LightningSlides";
 
 // Require CSS
 require("normalize.css");
@@ -30,7 +31,7 @@ export default class Presentation extends React.Component {
   render() {
     return (
       <Deck transitionDuration={500} theme={theme} contentHeight={1000}>
-        {IntroSlides}
+        {LightningSlides}
       </Deck>
     );
   }
