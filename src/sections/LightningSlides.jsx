@@ -41,6 +41,7 @@ import favoriteColorPipelineNames from "../code/favoriteColorPipelineNames.js";
 import immutableDeepUpdateData from "../code/immutableDeepUpdateData.js";
 import immutableDeepUpdateLame from "../code/immutableDeepUpdateLame.js";
 import immutableDeepUpdateRamda from "../code/immutableDeepUpdateRamda.js";
+import immutableDeepUpdateCopied from "../code/immutableDeepUpdateCopied";
 
 export default (
   <SlideSet>
@@ -76,7 +77,7 @@ export default (
     <Slide>
       <Heading size={1}>Lodash written by Haskell programmers</Heading>
 
-      <NotesList
+      <NoteList
         notes={[
           "Ramda is a JS utility library like lodash or underscore",
           "more functional focus",
@@ -88,11 +89,11 @@ export default (
     </Slide>
 
     <Slide>
-      <Heading size={1}>Immutable Deep Updates</Heading>
+      <Heading size={1}>Part 1: Immutable Deep Updates</Heading>
 
-      <NotessList
+      <NoteList
         notes={[
-          "Even if you don't take advantage of the function composition stuff that's next",
+          "First thing, even if you don't take advantage of the function composition stuff that's next",
           "Ramda is great for Redux",
           "Helps do immutable deep updates in reducers"
         ]}
@@ -100,18 +101,20 @@ export default (
     </Slide>
 
     <Slide>
-      <Heading size={2}>Immutable Deep Updates: Shape</Heading>
+      <Heading fit size={2}>
+        Immutable Deep Updates: Shape
+      </Heading>
 
       <CodePane
-        textSize="2rem"
+        textSize="1.5rem"
         lang="javascript"
         source={immutableDeepUpdateData}
       />
 
-      <NotesList
+      <NoteList
         notes={[
           "Let's say you have this complicated data structure.",
-          " Alice just got a job in the LA office (lucky them)",
+          "Alice just got a job in the LA office (lucky her)",
           "you want to update her user record's second street address"
         ]}
       />
@@ -126,7 +129,14 @@ export default (
         source={immutableDeepUpdateLame}
       />
 
-      <NotesList notes={["Mutation, clone, spread"]} />
+      <NoteList
+        notes={[
+          "How might we do this normally",
+          "Mutation: no good in an immutable system",
+          "clone: works fine, but slow",
+          "spread: can get complicated if it gets deeply nested"
+        ]}
+      />
     </Slide>
 
     <Slide>
@@ -138,27 +148,112 @@ export default (
         source={immutableDeepUpdateRamda}
       />
 
-      <NotesList
+      <NoteList
         notes={[
+          "Instead, ramda to the rescue",
           "AssocPath for a single update, mergeDeepRight or Left for multi-update",
-          "Efficient because copy-by-value, fine if you always use ramda."
+          "Efficient because copy-by-value. Why?"
         ]}
       />
-      <Notes />
+    </Slide>
+
+    <Slide>
+      <Heading size={2} fit>
+        Immutable Deep Updates: Efficient
+      </Heading>
+
+      <CodePane
+        textSize="1.75rem"
+        lang="javascript"
+        source={immutableDeepUpdateCopied}
+      />
+
+      <NoteList
+        notes={[
+          "copies all objects and arrays by reference",
+          "pieces of the tree, like position, skills, first address don't get cloned",
+          "shares references with other versions",
+          "only do immutable updates, it's fine"
+        ]}
+      />
+    </Slide>
+
+    <Slide>
+      <Heading size={1}>Part 2: Function Composition</Heading>
+
+      <NoteList notes={["part 2: function composition"]} />
+    </Slide>
+
+    <Slide>
+      <Heading size={2}>Marble Types</Heading>
+
+      <CodePane textSize="2rem" lang="javascript" source={favoriteColorTypes} />
+
+      <NoteList
+        notes={[
+          "for next example, we're going to operate on these marble types",
+          "take a list of these marbles with a color and size, and find the most frequent color"
+        ]}
+      />
+    </Slide>
+
+    <Slide>
+      <Heading fit size={2}>
+        Favorite Color: Imperative
+      </Heading>
+      <CodePane
+        textSize="2rem"
+        lang="javascript"
+        source={favoriteColorImperative}
+      />
+
+      <NoteList
+        notes={[
+          "could solve in an imperative way with a couple loops",
+          "that's lame"
+        ]}
+      />
+    </Slide>
+
+    <Slide>
+      <Heading size={2} fit>
+        Curry and pipes: favoriteColor()
+      </Heading>
+
+      <CodePane
+        textSize="2rem"
+        lang="javascript"
+        source={favoriteColorPipelineNames}
+      />
+
+      <NoteList
+        notes={[
+          "Instead do it with Ramda",
+          "Ramda's pipe let you write code almost like you do with elixir's pipe operator",
+          "All ramda functions are curried",
+          "means if the function takes two args, you can pass one and get a function back that takes one arg",
+          "also data-last",
+          "so like R.map can take just a function like R.length, and returns a function that runs length on every item in array",
+          "So you take a bunch of functions, pass params in to make them unary",
+          "then pipe them all together",
+          "let the data flow through, top to bottom",
+          "A ramda codebase often ends up being a bunch of small functions",
+          "in this case just aliases for better naming, like highest pair instead of head",
+          "then a more complicated pipe that chains stuff together",
+          "and you use that pure chained function in your:",
+          "components or reducers or controller or whatever"
+        ]}
+      />
     </Slide>
 
     <Slide>
       <Heading size={1}>Wrapping Up</Heading>
 
-      <Notes>
-        So! Hopefully that was a good taste of what programming with Ramda is
-        like. It's a pretty different and fun way to program, and is a way to
-        get a lot of the benefits of a super functional langage like Haskell or
-        Elixir, but within an existing javascript project. As we've seen, it's
-        also usually pretty straightforward to refactor a lodash function into a
-        ramda one, so this is definitely something you can start using today, if
-        your team is up for it.
-      </Notes>
+      <NoteList
+        notes={[
+          "So! Hopefully that was a good taste of what programming with Ramda is like. It's a pretty different and fun way to program, and is a way to get a lot of the benefits of a super functional language like Haskell or Elixir, but within an existing javascript project. And it's usually pretty straightforward to refactor a lodash function into a ramda one, or just use both for a while. So this is definitely something you can start using today, if your team is up for it."
+        ]}
+      />
     </Slide>
 
     <Slide bgImage="./img/do-it.gif" bgSize="contain" bgRepeat="no-repeat" />
