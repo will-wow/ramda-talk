@@ -1,7 +1,7 @@
 // Single update
 state = R.assocPath(
-  ["employee", "addresses", 1, "street"],
-  newWorkStreet,
+  ["employee", "skills", 2, "level"],
+  10,
   state
 );
 
@@ -11,8 +11,6 @@ state = R.mergeDeepRight(state, {
     title: "Senior Developer"
   },
   employee: {
-    skills: {
-      ruby: 10
-    }
+    isVerified: true
   }
 });

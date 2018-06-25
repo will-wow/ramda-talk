@@ -1,47 +1,17 @@
 import React from "react";
 
-import {
-  Heading,
-  Link,
-  List,
-  ListItem,
-  Notes,
-  Slide,
-  SlideSet,
-  CodePane
-} from "spectacle";
+import { Heading, Slide, SlideSet, CodePane, Text } from "spectacle";
 
 import NoteList from "../elements/NoteList";
 
-import curryAddJs from "../code/curryAdd.js";
-import curryAddSalesTax from "../code/curryAddSalesTax.js";
-import curryAddSalesTaxToAll from "../code/curryAddSalesTaxToAll.js";
-import addSalesTaxForTen from "../code/addSalesTaxForTen.js";
-import addSalesTaxForTenCompose from "../code/addSalesTaxForTenCompose.js";
-import addSalesTaxForTenPipe from "../code/addSalesTaxForTenPipe.js";
-import addSalesTaxForTenWithRounding from "../code/addSalesTaxForTenWithRounding.js";
-import marbleModel from "../code/marbleModel.ts";
-import redsEs6 from "../code/redsEs6.js";
-import redsRefactor1 from "../code/redsRefactor1.js";
-import redsRefactor2 from "../code/redsRefactor2.js";
-import filterMarblesEs6 from "../code/filterMarblesEs6.js";
-import filterMarblesRefactor1 from "../code/filterMarblesRefactor1.js";
-import filterMarblesRefactor2 from "../code/filterMarblesRefactor2.js";
-import favoriteColorTypes from "../code/favoriteColorTypes.js";
-import favoriteColorImperative from "../code/favoriteColorImperative.js";
-import favoriteColorPipeline from "../code/favoriteColorPipeline.js";
-import favoriteColorOutput from "../code/favoriteColorOutput.js";
-import favoriteColorPipelineGroupBy from "../code/favoriteColorPipelineGroupBy.js";
-import favoriteColorPipelineMap from "../code/favoriteColorPipelineMap.js";
-import favoriteColorPipelineToPairs from "../code/favoriteColorPipelineToPairs.js";
-import favoriteColorPipelineSortBy from "../code/favoriteColorPipelineSortBy.js";
-import favoriteColorPipelineLast from "../code/favoriteColorPipelineLast.js";
-import favoriteColorPipelineHead from "../code/favoriteColorPipelineHead.js";
-import favoriteColorPipelineNames from "../code/favoriteColorPipelineNames.js";
 import immutableDeepUpdateData from "../code/immutableDeepUpdateData.js";
 import immutableDeepUpdateLame from "../code/immutableDeepUpdateLame.js";
 import immutableDeepUpdateRamda from "../code/immutableDeepUpdateRamda.js";
 import immutableDeepUpdateCopied from "../code/immutableDeepUpdateCopied";
+import onlyPositiveArrow from "../code/onlyPositiveArrow";
+import onlyPositiveCurry from "../code/onlyPositiveCurry";
+import modePipe from "../code/modePipe";
+import modePipeValues from "../code/modePipeValues";
 
 export default (
   <SlideSet>
@@ -53,35 +23,16 @@ export default (
         textColor="secondary"
         margin="1rem 0"
       >
-        Ramda:
-      </Heading>
-      <Heading
-        fit
-        size={2}
-        caps
-        lineHeight={1}
-        textColor="secondary"
-        margin="1rem 0"
-      >
-        an absolute unit.
+        Ramda
       </Heading>
 
       <NoteList
         notes={[
-          "today want to convince you to be in awe at ramda, what an absolute unit",
-          "not a lot of ram-related memes, so close enough"
-        ]}
-      />
-    </Slide>
-
-    <Slide>
-      <Heading size={1}>Lodash written by Haskell programmers</Heading>
-
-      <NoteList
-        notes={[
+          "5-minute intro to ramda, go",
           "Ramda is a JS utility library like lodash or underscore",
           "more functional focus",
-          "Ramda makes it easy to write super functional code in JS",
+          "makes it easy to write super functional code in JS",
+          "Lodash written by Haskell programmers",
           "I've used on Gap PEM and SharesPost",
           "Also used on CoCo, TODO: MORE"
         ]}
@@ -114,8 +65,10 @@ export default (
       <NoteList
         notes={[
           "Let's say you have this complicated data structure.",
-          "Alice just got a job in the LA office (lucky her)",
-          "you want to update her user record's second street address"
+          "describes a C5 employee, Alice",
+          "Alice just heard this talk",
+          "obviously her ramda skill just went to 10",
+          "we want to update state.employee.skills[2].skill"
         ]}
       />
     </Slide>
@@ -132,15 +85,17 @@ export default (
       <NoteList
         notes={[
           "How might we do this normally",
-          "Mutation: no good in an immutable system",
-          "clone: works fine, but slow",
-          "spread: can get complicated if it gets deeply nested"
+          "Mutation: no good in an immutable system like redux",
+          "clone: slow",
+          "spread: nice, complicated when deeply nested"
         ]}
       />
     </Slide>
 
     <Slide>
-      <Heading size={2}>Immutable Deep Updates: Amazing</Heading>
+      <Heading size={2} fit>
+        Immutable Deep Updates: Amazing
+      </Heading>
 
       <CodePane
         textSize="2rem"
@@ -170,10 +125,9 @@ export default (
 
       <NoteList
         notes={[
-          "copies all objects and arrays by reference",
-          "pieces of the tree, like position, skills, first address don't get cloned",
-          "shares references with other versions",
-          "only do immutable updates, it's fine"
+          "if it finds an array or object that isn't updated",
+          "copies by reference",
+          "doesn't waste cycles cloning things that won't change"
         ]}
       />
     </Slide>
@@ -181,67 +135,73 @@ export default (
     <Slide>
       <Heading size={1}>Part 2: Function Composition</Heading>
 
-      <NoteList notes={["part 2: function composition"]} />
-    </Slide>
-
-    <Slide>
-      <Heading size={2}>Marble Types</Heading>
-
-      <CodePane textSize="2rem" lang="javascript" source={favoriteColorTypes} />
-
       <NoteList
         notes={[
-          "for next example, we're going to operate on these marble types",
-          "take a list of these marbles with a color and size, and find the most frequent color"
-        ]}
-      />
-    </Slide>
-
-    <Slide>
-      <Heading fit size={2}>
-        Favorite Color: Imperative
-      </Heading>
-      <CodePane
-        textSize="2rem"
-        lang="javascript"
-        source={favoriteColorImperative}
-      />
-
-      <NoteList
-        notes={[
-          "could solve in an imperative way with a couple loops",
-          "that's lame"
+          "part 2: function composition",
+          "besides immutable updates",
+          "lets us write functional, declarative code"
         ]}
       />
     </Slide>
 
     <Slide>
       <Heading size={2} fit>
-        Curry and pipes: favoriteColor()
+        Curried Functions
       </Heading>
 
-      <CodePane
-        textSize="2rem"
-        lang="javascript"
-        source={favoriteColorPipelineNames}
-      />
+      <CodePane textSize="3rem" lang="javascript" source={onlyPositiveArrow} />
+      <Text>Is the same as</Text>
+      <CodePane textSize="3rem" lang="javascript" source={onlyPositiveCurry} />
 
       <NoteList
         notes={[
-          "Instead do it with Ramda",
-          "Ramda's pipe let you write code almost like you do with elixir's pipe operator",
-          "All ramda functions are curried",
-          "means if the function takes two args, you can pass one and get a function back that takes one arg",
-          "also data-last",
-          "so like R.map can take just a function like R.length, and returns a function that runs length on every item in array",
-          "So you take a bunch of functions, pass params in to make them unary",
-          "then pipe them all together",
-          "let the data flow through, top to bottom",
-          "A ramda codebase often ends up being a bunch of small functions",
-          "in this case just aliases for better naming, like highest pair instead of head",
-          "then a more complicated pipe that chains stuff together",
-          "and you use that pure chained function in your:",
-          "components or reducers or controller or whatever"
+          "key is all the functions are curried",
+          "we want a function onlyPositive that filters an array for numbers > 0",
+          "traditional way would be:",
+          "make a function that takes an array and passes the array and a isGreaterThanZero function to filter",
+          "with currying, same thing is one-liner",
+          "just passing filter a function returns a function that takes an array and filters it",
+          "note ramda functions take their data paramter (the array or whatever) as they last paramter",
+          "if array came first like in lodash, not as useful"
+        ]}
+      />
+    </Slide>
+
+    <Slide>
+      <Heading size={2} fit>
+        Example: Mode
+      </Heading>
+
+      <CodePane textSize="2rem" lang="javascript" source={modePipe} />
+
+      <NoteList
+        notes={[
+          "example: a function for mode",
+          "the most frequently occurring value in a set",
+          "this is what ramda code often looks like",
+          "bunch of small functions, even just aliases with better names",
+          "Because curried, some take params to make them unary",
+          "like sortByCount or map(length)",
+          "get down to a bunch of unary functions, chain together with pipe",
+          "to do more complicated logic"
+        ]}
+      />
+    </Slide>
+
+    <Slide>
+      <Heading size={2}>Pipe</Heading>
+
+      <CodePane textSize="2rem" lang="javascript" source={modePipeValues} />
+
+      <NoteList
+        notes={[
+          "Ramda's pipe let you write the same kind of code you would with elixir's pipe operator",
+          "to-do list of functions",
+          "output of one function gets fed into the input of the next one",
+          "construct business logic from pipes of small named function",
+          "pass them application state in framework code:",
+          "components or reducers or controllers or whatever",
+          "now have nice testable functional system"
         ]}
       />
     </Slide>
@@ -251,7 +211,12 @@ export default (
 
       <NoteList
         notes={[
-          "So! Hopefully that was a good taste of what programming with Ramda is like. It's a pretty different and fun way to program, and is a way to get a lot of the benefits of a super functional language like Haskell or Elixir, but within an existing javascript project. And it's usually pretty straightforward to refactor a lodash function into a ramda one, or just use both for a while. So this is definitely something you can start using today, if your team is up for it."
+          "That's a tiny taste of programming with ramda",
+          "there's a lot more there",
+          "fun and maintainable way to program",
+          "recently added Ramda to long-running SharesPost",
+          "I think has been pretty successful",
+          "so if you're thinking of adding Ramda to your project"
         ]}
       />
     </Slide>

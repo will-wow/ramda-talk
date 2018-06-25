@@ -1,10 +1,10 @@
 // Mutation
-state.employee.addresses[1].street = newWorkStreet;
+state.employee.skills[2].level = 10;
 
 // Slow
 _.cloneDeep(state);
 
 // Annoying
-const address2 = { ...state.employee.addresses[1], street: newWorkStreet };
-const addresses = [state.employee.addresses[0], address2];
-state = { ...state, employee: { ...employee, addresses } };
+const ramdaSkill = { ...state.employee.skills[2], level: 10 };
+const skills = [...state.employee.skills.slice(2), ramdaSkill];
+state = { ...state, employee: { ...employee, skills } };

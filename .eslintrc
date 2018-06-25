@@ -1,0 +1,13 @@
+{
+  "globals": {
+    "R": true,
+    "_": true
+  },
+  "rules": {
+    "react/jsx-one-expression-per-line": 0,
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "no-unused-vars": 0
+  },
+  "extends": ["airbnb", "prettier"]
+}

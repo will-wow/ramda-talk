@@ -2,21 +2,19 @@ const state = {
   updatedAt: "2018-06-01",
   position: {
     title: "Developer",
-    roles: ["Lead", "Blogger" ]
+    roles: ["Lead", "Blogger"]
   },
   employee: {
     name: "Alice",
     isVerified: false,
-    addresses: [
-      { street: "123 Fake Street", city: "LA" },
-      { street: "31 Work Ave", city: "Santa Monica" }
-    ],
-    skills: {
-      ruby: 5,
-      javascript: 7,
-      ramda: 11
-    }
+    address: { 
+      street: "525 Colorado", city: "Santa Monica"
+    },
+    skills: [
+      { name: "ruby", level: 5 },
+      { name: "javascript", level: 7 },
+      // We want to change level here
+      { name: "ramda", level: 1 }
+    ]
   }
 };
-
-const newWorkStreet = "525 Colorado";
